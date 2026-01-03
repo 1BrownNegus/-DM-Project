@@ -17,12 +17,11 @@ void showData(int data[], int n)
 /* Generates random integers */
 void createDataset(int data[], int n)
 {
-    srand(time(0));
     for (int i = 0; i < n; i++)
         data[i] = rand() % 100;
 }
 
-/* Bubble Sort Implementation */
+/* Bubble Sort */
 void runBubble(int data[], int n)
 {
     for (int pass = 0; pass < n - 1; pass++)
@@ -31,73 +30,76 @@ void runBubble(int data[], int n)
         {
             if (data[i] > data[i + 1])
             {
-                int swapTemp = data[i];
+                int temp = data[i];
                 data[i] = data[i + 1];
-                data[i + 1] = swapTemp;
+                data[i + 1] = temp;
             }
             showData(data, n);
         }
     }
 }
 
-/* Selection Sort Implementation */
+/* Selection Sort */
 void runSelection(int data[], int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
-        int smallest = i;
+        int minIndex = i;
         for (int j = i + 1; j < n; j++)
         {
-            if (data[j] < data[smallest])
-                smallest = j;
+            if (data[j] < data[minIndex])
+                minIndex = j;
         }
 
         int temp = data[i];
-        data[i] = data[smallest];
-        data[smallest] = temp;
+        data[i] = data[minIndex];
+        data[minIndex] = temp;
 
         showData(data, n);
     }
 }
 
-/* Insertion Sort Implementation */
+/* Insertion Sort */
 void runInsertion(int data[], int n)
 {
     for (int i = 1; i < n; i++)
     {
-        int current = data[i];
-        int pos = i - 1;
+        int key = data[i];
+        int j = i - 1;
 
-        while (pos >= 0 && data[pos] > current)
+        while (j >= 0 && data[j] > key)
         {
-            data[pos + 1] = data[pos];
-            pos--;
+            data[j + 1] = data[j];
+            j--;
         }
-
-        data[pos + 1] = current;
+        data[j + 1] = key;
         showData(data, n);
     }
 }
 
-/* Measures execution time */
-void evaluateSort(void (*sortAlgo)(int[], int), int original[], int n, string name)
+/* Time measurement wrapper */
+void evaluateSort(void (*algo)(int[], int), int original[], int n, string name)
 {
-    int copy[MAX_SIZE];
+    int temp[MAX_SIZE];
     for (int i = 0; i < n; i++)
-        copy[i] = original[i];
+        temp[i] = original[i];
 
     clock_t start = clock();
-    sortAlgo(copy, n);
-    clock_t finish = clock();
+    algo(temp, n);
+    clock_t end = clock();
 
-    double duration = (double)(finish - start) / CLOCKS_PER_SEC * 1000;
-    cout << "\n" << name << " completed in " << duration << " ms\n";
+    double timeTaken = (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    cout << "\n" << name << " completed in " << timeTaken << " ms\n";
 }
 
 int main()
 {
+    srand(time(0));
+
     int size;
-    int numbers[MAX_SIZE];
+    int data[MAX_SIZE];
+    int choice;
+    char regenerate;
 
     cout << "=== Sorting Algorithm Demonstrator ===\n";
     cout << "Enter number of elements (1 - 1000): ";
@@ -105,42 +107,56 @@ int main()
 
     if (size < 1 || size > MAX_SIZE)
     {
-        cout << "Invalid size entered.\n";
+        cout << "Invalid size. Exiting program.\n";
         return 0;
     }
 
-    createDataset(numbers, size);
+    createDataset(data, size);
 
-    cout << "\nInitial Data:\n";
-    showData(numbers, size);
-
-    cout << "\nChoose Sorting Method:\n";
-    cout << "1. Bubble Sort\n";
-    cout << "2. Selection Sort\n";
-    cout << "3. Insertion Sort\n";
-    cout << "Enter choice: ";
-
-    int option;
-    cin >> option;
-
-    switch (option)
+    do
     {
-        case 1:
-            evaluateSort(runBubble, numbers, size, "Bubble Sort");
-            break;
+        cout << "\nCurrent Dataset:\n";
+        showData(data, size);
 
-        case 2:
-            evaluateSort(runSelection, numbers, size, "Selection Sort");
-            break;
+        cout << "\nMenu:\n";
+        cout << "1. Bubble Sort\n";
+        cout << "2. Selection Sort\n";
+        cout << "3. Insertion Sort\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-        case 3:
-            evaluateSort(runInsertion, numbers, size, "Insertion Sort");
-            break;
+        switch (choice)
+        {
+            case 1:
+                evaluateSort(runBubble, data, size, "Bubble Sort");
+                break;
 
-        default:
-            cout << "Invalid option selected.\n";
-    }
+            case 2:
+                evaluateSort(runSelection, data, size, "Selection Sort");
+                break;
 
-    cout << "\nProgram Finished Successfully.\n";
+            case 3:
+                evaluateSort(runInsertion, data, size, "Insertion Sort");
+                break;
+
+            case 0:
+                cout << "\nExiting program. Goodbye!\n";
+                break;
+
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+
+        if (choice != 0)
+        {
+            cout << "\nGenerate new data? (y/n): ";
+            cin >> regenerate;
+            if (regenerate == 'y' || regenerate == 'Y')
+                createDataset(data, size);
+        }
+
+    } while (choice != 0);
+
     return 0;
 }
