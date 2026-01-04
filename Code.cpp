@@ -226,43 +226,40 @@ int main()
 
     cout << "=== Sorting Algorithm Demonstrator ===\n";
 
-    // Ask if user wants to read from file first
-    while (true)
-    {
-        cout << "Read data from file? (y/n): ";
-        cin >> fileChoice;
-        if (fileChoice == 'y' || fileChoice == 'Y' || fileChoice == 'n' || fileChoice == 'N')
-            break;
-        else
-            cout << "Invalid input. Enter 'y' or 'n'.\n";
-    }
-
-    if (fileChoice == 'y' || fileChoice == 'Y')
-    {
-        if (!readFromFile("data.txt", data, size))
-            return 0;
-    }
-    else
-    {
-        // Input size with validation
-        while (true)
-        {
-            cout << "Enter number of elements (1 - 1000): ";
-            cin >> size;
-            if (cin.fail() || size < 1 || size > MAX_SIZE)
-            {
-                cout << "Invalid input. Try again.\n";
-                clearInput();
-            }
-            else break;
-        }
-    }
-
     do
     {
-        // Dataset selection with validation (skip if reading from file)
-        if (fileChoice == 'n' || fileChoice == 'N')
+        // Ask if user wants to read from file
+        while (true)
         {
+            cout << "Read data from file? (y/n): ";
+            cin >> fileChoice;
+            if (fileChoice == 'y' || fileChoice == 'Y' || fileChoice == 'n' || fileChoice == 'N')
+                break;
+            else
+                cout << "Invalid input. Enter 'y' or 'n'.\n";
+        }
+
+        if (fileChoice == 'y' || fileChoice == 'Y')
+        {
+            if (!readFromFile("data.txt", data, size))
+                return 0;
+        }
+        else
+        {
+            // Input size with validation
+            while (true)
+            {
+                cout << "Enter number of elements (1 - 1000): ";
+                cin >> size;
+                if (cin.fail() || size < 1 || size > MAX_SIZE)
+                {
+                    cout << "Invalid input. Try again.\n";
+                    clearInput();
+                }
+                else break;
+            }
+
+            // Dataset selection with validation
             while (true)
             {
                 cout << "\nSelect dataset type:\n1. Random\n2. Best case\n3. Worst case\n";

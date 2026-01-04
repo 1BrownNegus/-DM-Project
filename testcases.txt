@@ -14,3 +14,7 @@ Dataset: 23 5 87 12 45 78 3 56 34 9
 Selection Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 34 ms (34496000 ns)
 Dataset: 23 5 87 12 45 78 3 56 34 9 
 Merge Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 24 ms (24349000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Quick Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 25 ms (25673000 ns)
+Dataset: 43 92 50 33 18 29 50 34 16 55 
+Quick Sort: 16 18 29 33 34 43 50 50 55 92  - Time: 25 ms (25405000 ns)
