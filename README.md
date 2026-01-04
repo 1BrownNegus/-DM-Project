@@ -1,100 +1,114 @@
 # Sorting Algorithm Demonstrator
 
-This program demonstrates various sorting algorithms with step-by-step visualization.
+This C++ program demonstrates various sorting algorithms with step-by-step visualization, performance timing, and best/worst-case scenario testing. It is designed for educational purposes to understand sorting algorithm behaviors.
+
+## Features
+- Interactive demonstration of sorting algorithms with visual step-by-step output.
+- Support for multiple dataset types: Random, Best Case (already sorted), and Worst Case (reverse sorted).
+- Performance measurement in milliseconds and nanoseconds.
+- Automated testing for best and worst-case scenarios across different array sizes.
+- Data input from file or manual generation.
+- Output logging to file for analysis.
 
 ## Files
-- `Code.cpp`: The main C++ source code.
-- `data.txt`: Input file containing the dataset (first line: number of elements, subsequent lines: elements).
-- `testcases.txt`: Output file where datasets and sorted results with timings are written.
+- `Code.cpp`: The main C++ source code containing all sorting implementations and the interactive menu.
+- `data.txt`: Optional input file for datasets (first line: number of elements, subsequent lines: space-separated integers).
+- `testcases.txt`: Output log file where datasets, sorted results, and timings are appended.
+- `README.md`: This documentation file.
+
+## Prerequisites
+- C++ compiler (e.g., g++ on Windows/Linux/Mac).
+- Standard C++ libraries (included with most compilers).
 
 ## Compilation
 Compile the program using g++:
 ```
-g++ Code.cpp -o Code.exe
+g++ Code.cpp -o SortingDemo.exe
 ```
 
 ## Usage
 Run the compiled executable:
 ```
-./Code.exe
+./SortingDemo.exe
 ```
 
 ### Program Flow
-The program runs in a loop, allowing you to work with multiple datasets.
+The program runs in an interactive loop, allowing you to work with multiple datasets.
 
-For each dataset:
 1. **Data Source Selection**:
    - Choose 'y' to read data from `data.txt`.
    - Choose 'n' to generate data manually.
 
-2. **Dataset Generation** (if choosing to generate):
+2. **Dataset Generation** (if generating manually):
    - Enter the number of elements (1-1000).
-   - Select dataset type: Random, Best Case, or Worst Case.
+   - Select dataset type:
+     - 1: Random (unsorted array).
+     - 2: Best Case (already sorted ascending).
+     - 3: Worst Case (sorted descending).
 
 3. **Display Dataset**:
-   - The current dataset is displayed.
+   - The current dataset is displayed on the console.
 
-4. **Sorting**:
-   - Choose a sorting algorithm: Bubble, Selection, Insertion, Merge, or Quick Sort.
-   - The program displays the array after each step on the console.
-   - Execution time is shown in milliseconds and nanoseconds.
-   - Results are appended to `testcases.txt`.
+4. **Sorting Options**:
+   - Choose from:
+     - 1: Bubble Sort
+     - 2: Selection Sort
+     - 3: Insertion Sort
+     - 4: Merge Sort
+     - 5: Quick Sort
+     - 6: Test Best/Worst Cases (automated performance testing)
+     - 0: Exit
+   - For individual sorts (1-5): Displays step-by-step array changes and final timing.
+   - For option 6: Runs silent performance tests on best/worst cases for sizes 10, 100, 500, 1000.
 
 5. **Repeat Options**:
    - Option to sort the same dataset again with a different algorithm.
    - Option to generate a new dataset (returns to step 1).
 
 ## Supported Algorithms
-- Bubble Sort
-- Selection Sort
-- Insertion Sort
-- Merge Sort
-- Quick Sort
+- **Bubble Sort**: O(n²) worst/average, O(n) best case (with early termination).
+- **Selection Sort**: O(n²) in all cases.
+- **Insertion Sort**: O(n²) worst/average, O(n) best case.
+- **Merge Sort**: O(n log n) in all cases, stable sort.
+- **Quick Sort**: O(n log n) average, O(n²) worst case (mitigated with median-of-three pivot).
 
 ## Output
-- Console: Step-by-step array changes and final timing.
-- `testcases.txt`: Dataset and sorted arrays with timings.
+- **Console**: Step-by-step array changes during sorting and final execution times.
+- **`testcases.txt`**: Logs datasets, sorted arrays, and timings for analysis.
 
-## Suggestions for a good README
+## Example Usage
+```
+=== Sorting Algorithm Demonstrator ===
+Read data from file? (y/n): n
+Enter number of elements (1 - 1000): 10
+Select dataset type:
+1. Random
+2. Best case
+3. Worst case
+Enter choice: 2
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Current Dataset:
+1 2 3 4 5 6 7 8 9 10
 
-## Name
-Choose a self-explaining name for your project.
+Sorting Menu:
+1. Bubble Sort
+2. Selection Sort
+3. Insertion Sort
+4. Merge Sort
+5. Quick Sort
+6. Test Best/Worst Cases
+0. Exit
+Enter choice: 6
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+=== Testing with n = 10 ===
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Best Case (Already Sorted):
+Bubble Sort completed in 0 ms (0 ns) - Sorted
+...
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Project Status
+This is a completed educational project for Discrete Mathematics (CSC102F25R169). All algorithms are implemented and tested for correctness on best and worst-case scenarios.
 
 ## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is for educational purposes. Feel free to use and modify as needed.

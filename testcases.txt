@@ -18,3 +18,41 @@ Dataset: 23 5 87 12 45 78 3 56 34 9
 Quick Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 25 ms (25673000 ns)
 Dataset: 43 92 50 33 18 29 50 34 16 55 
 Quick Sort: 16 18 29 33 34 43 50 50 55 92  - Time: 25 ms (25405000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Bubble Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 321 ms (321228000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Selection Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 36 ms (36417000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Insertion Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 76 ms (76102000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Merge Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 20 ms (20146000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Quick Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 35 ms (35302000 ns)
+Dataset: 78 36 17 3 8 4 30 19 93 0 
+Bubble Sort: 0 3 4 8 17 19 30 36 78 93  - Time: 471 ms (471915000 ns)
+Dataset: 69 6 78 51 90 19 19 31 50 1 44 34 14 75 77 24 27 53 67 25 
+Quick Sort: 1 6 14 19 19 24 25 27 31 34 44 50 51 53 67 69 75 77 78 90  - Time: 131 ms (131035000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Bubble Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 470 ms (470202000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Selection Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 36 ms (36486000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Bubble Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 0 ms (991000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Selection Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 16 ms (16197000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Insertion Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 18 ms (18544000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Merge Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 8 ms (8904000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Quick Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 10 ms (10979000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Bubble Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 0 ms (951000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Selection Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 14 ms (14724000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Insertion Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 14 ms (14209000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Merge Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 5 ms (5918000 ns)
+Dataset: 1 2 3 4 5 6 7 8 9 10 
+Quick Sort: 1 2 3 4 5 6 7 8 9 10  - Time: 6 ms (6134000 ns)
