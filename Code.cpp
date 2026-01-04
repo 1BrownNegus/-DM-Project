@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <chrono>
 #include <limits> // For numeric_limits
+#include <fstream>
 using namespace std;
 using namespace std::chrono;
 
@@ -20,6 +21,51 @@ void clearInput()
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
+
+/* ---------- File Handling ---------- */
+bool readFromFile(const string& filename, int arr[], int& n)
+{
+    ifstream fin(filename);
+    if (!fin)
+    {
+        cout << "Error opening input file.\n";
+        return false;
+    }
+
+    fin >> n;
+    if (n < 1 || n > MAX_SIZE)
+    {
+        cout << "Invalid size in file.\n";
+        return false;
+    }
+
+    for (int i = 0; i < n; i++)
+        fin >> arr[i];
+
+    fin.close();
+    return true;
+}
+
+void writeDatasetToFile(const string& filename, int arr[], int n)
+{
+    ofstream fout(filename, ios::app);
+    fout << "Dataset: ";
+    for (int i = 0; i < n; i++)
+        fout << arr[i] << " ";
+    fout << "\n";
+    fout.close();
+}
+
+void writeToFile(const string& filename, const string& name, int arr[], int n, long long duration_ms, long long duration_ns)
+{
+    ofstream fout(filename, ios::app);
+    fout << name << ": ";
+    for (int i = 0; i < n; i++)
+        fout << arr[i] << " ";
+    fout << " - Time: " << duration_ms << " ms (" << duration_ns << " ns)\n";
+    fout.close();
+}
+
 
 /* ---------- Data Generation ---------- */
 void createDataset(int data[], int n) { for (int i = 0; i < n; i++) data[i] = rand() % 100; }
@@ -83,8 +129,6 @@ int partition(int arr[], int low, int high)
             swap(arr[++i], arr[j]);
     }
     swap(arr[i + 1], arr[high]);
-    cout << "Partitioned with pivot " << pivot << ": ";
-    showData(arr, high + 1);
     return i + 1;
 }
 
@@ -93,6 +137,7 @@ void runQuick(int arr[], int low, int high)
     if (low < high)
     {
         int pi = partition(arr, low, high);
+        showData(arr, high + 1);
         runQuick(arr, low, pi - 1);
         runQuick(arr, pi + 1, high);
     }
@@ -115,9 +160,7 @@ void merge(int arr[], int l, int m, int r)
     while (i < n1) arr[k++] = L[i++];
     while (j < n2) arr[k++] = R[j++];
 
-    cout << "Merged [" << l << " - " << r << "]: ";
-    for (int x = l; x <= r; x++) cout << arr[x] << " ";
-    cout << endl;
+    showData(arr + l, r - l + 1);
 
     delete[] L;
     delete[] R;
@@ -141,6 +184,7 @@ void evaluateSort(void (*algo)(int[], int), int original[], int n, string name)
     for (int i = 0; i < n; i++) temp[i] = original[i];
 
     cout << "\n=== " << name << " ===\n";
+    writeDatasetToFile("testcases.txt", original, n);
     auto start = high_resolution_clock::now();
     algo(temp, n);
     auto end = high_resolution_clock::now();
@@ -149,6 +193,8 @@ void evaluateSort(void (*algo)(int[], int), int original[], int n, string name)
     auto duration_ns = duration_cast<nanoseconds>(end - start).count();
 
     cout << name << " completed in " << duration_ms << " ms (" << duration_ns << " ns)\n";
+
+    writeToFile("testcases.txt", name, temp, n, duration_ms, duration_ns);
 }
 
 void evaluateSort(void (*algo)(int[], int, int), int original[], int n, string name)
@@ -157,6 +203,7 @@ void evaluateSort(void (*algo)(int[], int, int), int original[], int n, string n
     for (int i = 0; i < n; i++) temp[i] = original[i];
 
     cout << "\n=== " << name << " ===\n";
+    writeDatasetToFile("testcases.txt", original, n);
     auto start = high_resolution_clock::now();
     algo(temp, 0, n - 1);
     auto end = high_resolution_clock::now();
@@ -165,6 +212,8 @@ void evaluateSort(void (*algo)(int[], int, int), int original[], int n, string n
     auto duration_ns = duration_cast<nanoseconds>(end - start).count();
 
     cout << name << " completed in " << duration_ms << " ms (" << duration_ns << " ns)\n";
+
+    writeToFile("testcases.txt", name, temp, n, duration_ms, duration_ns);
 }
 
 /* ---------- Main Program ---------- */
@@ -172,45 +221,67 @@ int main()
 {
     srand(time(0));
     int size, choice, shapeChoice;
-    char regenerate;
+    char regenerate, fileChoice;
     int data[MAX_SIZE];
 
     cout << "=== Sorting Algorithm Demonstrator ===\n";
 
-    // Input size with validation
+    // Ask if user wants to read from file first
     while (true)
     {
-        cout << "Enter number of elements (1 - 1000): ";
-        cin >> size;
-        if (cin.fail() || size < 1 || size > MAX_SIZE)
-        {
-            cout << "Invalid input. Try again.\n";
-            clearInput();
-        }
-        else break;
+        cout << "Read data from file? (y/n): ";
+        cin >> fileChoice;
+        if (fileChoice == 'y' || fileChoice == 'Y' || fileChoice == 'n' || fileChoice == 'N')
+            break;
+        else
+            cout << "Invalid input. Enter 'y' or 'n'.\n";
     }
 
-    do
+    if (fileChoice == 'y' || fileChoice == 'Y')
     {
-        // Dataset selection with validation
+        if (!readFromFile("data.txt", data, size))
+            return 0;
+    }
+    else
+    {
+        // Input size with validation
         while (true)
         {
-            cout << "\nSelect dataset type:\n1. Random\n2. Best case\n3. Worst case\n";
-            cout << "Enter choice: ";
-            cin >> shapeChoice;
-            if (cin.fail() || shapeChoice < 1 || shapeChoice > 3)
+            cout << "Enter number of elements (1 - 1000): ";
+            cin >> size;
+            if (cin.fail() || size < 1 || size > MAX_SIZE)
             {
-                cout << "Invalid choice. Try again.\n";
+                cout << "Invalid input. Try again.\n";
                 clearInput();
             }
             else break;
         }
+    }
 
-        switch (shapeChoice)
+    do
+    {
+        // Dataset selection with validation (skip if reading from file)
+        if (fileChoice == 'n' || fileChoice == 'N')
         {
-            case 1: createDataset(data, size); break;
-            case 2: createBestCase(data, size); break;
-            case 3: createWorstCase(data, size); break;
+            while (true)
+            {
+                cout << "\nSelect dataset type:\n1. Random\n2. Best case\n3. Worst case\n";
+                cout << "Enter choice: ";
+                cin >> shapeChoice;
+                if (cin.fail() || shapeChoice < 1 || shapeChoice > 3)
+                {
+                    cout << "Invalid choice. Try again.\n";
+                    clearInput();
+                }
+                else break;
+            }
+
+            switch (shapeChoice)
+            {
+                case 1: createDataset(data, size); break;
+                case 2: createBestCase(data, size); break;
+                case 3: createWorstCase(data, size); break;
+            }
         }
 
         cout << "\nCurrent Dataset:\n";

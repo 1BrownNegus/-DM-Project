@@ -1,0 +1,16 @@
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Bubble Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 141 ms (141956000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Selection Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 39 ms (39947000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Insertion Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 24 ms (24307000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Merge Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 20 ms (20231000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Quick Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 22 ms (22249000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Bubble Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 132 ms (132632000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Selection Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 34 ms (34496000 ns)
+Dataset: 23 5 87 12 45 78 3 56 34 9 
+Merge Sort: 3 5 9 12 23 34 45 56 78 87  - Time: 24 ms (24349000 ns)
